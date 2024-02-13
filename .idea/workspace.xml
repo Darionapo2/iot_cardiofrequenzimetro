@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2301dbd-2971-4ed6-8b93-6c9e721c77c3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/iot_cardiofrequenzimetro.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="f2301dbd-2971-4ed6-8b93-6c9e721c77c3" name="Changes" comment="Added main.py">
+      <change afterPath="$PROJECT_DIR$/conf/MQTT_configuration_params.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/CardiovascularMonitoringWearable.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/CardiovascularTelemetry.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/model/StatusTelemetry.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +43,10 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
@@ -62,8 +66,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1707854179332</updated>
-      <workItem from="1707854186464" duration="133000" />
+      <workItem from="1707854186464" duration="1036000" />
     </task>
+    <task id="LOCAL-00001" summary="Added main.py">
+      <option name="closed" value="true" />
+      <created>1707854367151</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1707854367151</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -71,5 +84,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Added main.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added main.py" />
   </component>
 </project>
