@@ -1,0 +1,16 @@
+import json
+
+class CardiovascularMonitoringWearable:
+    uuid: str
+    manufacturer: str
+    model: str
+    owner_id: str
+
+    def __init__(self, uuid: str, manufacturer: str, model: str, owner_id: str) -> None:
+        self.uuid = uuid
+        self.manufacturer = manufacturer
+        self.model = model
+        self.owner_id = owner_id
+
+    def to_json(self) -> str:
+        return json.dumps(self, default = lambda o: o.__dict__)
