@@ -14,3 +14,10 @@ class CardiovascularMonitoringWearable:
 
     def to_json(self) -> str:
         return json.dumps(self, default = lambda o: o.__dict__)
+
+def main():
+    CMW = CardiovascularMonitoringWearable('12345', 'dario\'s ltd', 'pro', 'dario')
+    print(CMW.to_json())
+
+if __name__ == '__main__':
+    main()

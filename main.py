@@ -1,8 +1,8 @@
 from conf import MQTT_configuration_params as Params
 import paho.mqtt.client as mqtt
 
-def on_connect(client, user_data, flags, result_code):
-    print(f'Connected with result code {result_code}')
+def on_connect(client, userdata, flags, rc):
+    print(f'Connected with result code {rc}')
 
     device_info_topic = (f'{Params.MQTT_BASIC_TOPIC}/{Params.WEARABLE_TOPIC}/+/'
                          f'{Params.WEARABLE_INFO_TOPIC}')
