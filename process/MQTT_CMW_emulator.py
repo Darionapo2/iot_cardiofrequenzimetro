@@ -75,7 +75,7 @@ class Emulator:
         device_payload = self.status_telemetry.to_json()
         payload_with_timestamp = add_timestamp(device_payload)
 
-        self.mqtt_client.publish(target_topic, payload_with_timestamp, qos = 0, retain = True)
+        self.mqtt_client.publish(target_topic, payload_with_timestamp, qos = 2, retain = True)
         print(f'Status data published -> Topic: {target_topic} Payload: {device_payload}')
 
     def start(self):
@@ -137,6 +137,10 @@ def main():
                 emu.publish_status_data()
 
         time.sleep(3)
+        # in una implementazione reale di questa simulazione è possibile determinare
+        # singolarmente la frequenza di trasmissione delle misurazioni eseguite dai vari
+        # dispositivi wearable. A scopi simulativi sarebbe possbile ottenere un risultato simile
+        # utilizzando un approccio multithrading.
 
     for emu in wearables_emus:
         emu.stop()
