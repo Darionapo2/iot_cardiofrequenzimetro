@@ -5,11 +5,11 @@ import time
 
 class StatusTelemetry:
     battery_level: float # % of battery charge
-    emergency: bool # True when a cardiovascular anomaly is detected
+    anomaly: bool
 
-    def __init__(self, battery_level: float) -> None:
+    def __init__(self, battery_level: float = 100) -> None:
         self.battery_level = battery_level
-        self.emergency = False
+        self.anomaly = False
 
     def simulate_battery_discharge(self) -> None:
         self.battery_level -= round(random.uniform(1, 5), 2)

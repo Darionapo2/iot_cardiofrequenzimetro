@@ -1,4 +1,6 @@
 import json
+import time
+
 
 class CardiovascularMonitoringWearable:
     uuid: str

@@ -1,3 +1,4 @@
+import json
 from typing import Callable
 import paho.mqtt.client as mqtt
 from model.CardiovascularMonitoringWearable import CardiovascularMonitoringWearable
@@ -19,50 +20,37 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe(device_telemetry_topic)
     print(f'Subscribed to: {device_telemetry_topic}')
 
+    device_status_topic = (f'{Params.MQTT_BASIC_TOPIC}/{Params.WEARABLE_TOPIC}/+/'
+                              f'{Params.WEARABLE_STATUS_TOPIC}')
+
+    client.subscribe(device_status_topic)
+    print(f'Subscribed to: {device_status_topic}')
+
 
 def on_message(client, userdata, message):
     message_payload = str(message.payload.decode('utf-8'))
-    print(f'Received IoT Message: Topic: {message.topic}, Payload: {message_payload}')
+    print(f'<<{message.topic}>> -> {message_payload}')
 
-class DataCollectorManager:
+    splitted_topic = message.topic.split('/')
+    data_type = splitted_topic[-1]
+    device = splitted_topic[-2]
 
-    log_file: str
-    devices: list[CardiovascularMonitoringWearable]
-    on_connect_handler: Callable
-    on_message_handler: Callable
+    with open(f'messages-{device}.log', 'a', encoding = 'utf-8') as file:
+        file.write(f'{message_payload}\n')
+        if data_type == 'status':
+            dict_payload = json.loads(message_payload)
+            if dict_payload['anomaly']:
+                file.write(f'###### ANOMALY ######\n')
 
-    client_mqtt: mqtt.Client
 
-    def __init__(self, log_file: str,
-                 on_connect_handler: Callable,
-                 on_message_handler: Callable) -> None:
+def data_collection():
+    data_collector_mqtt_client = mqtt.Client('datamanager')
+    data_collector_mqtt_client.on_message = on_message
+    data_collector_mqtt_client.on_connect = on_connect
+    data_collector_mqtt_client.username_pw_set(Params.MQTT_USERNAME, Params.MQTT_PASSWORD)
+    data_collector_mqtt_client.connect(Params.BROKER_ADDRESS, Params.BROKER_PORT)
+    data_collector_mqtt_client.loop_forever()
 
-        self.log_file = log_file
-        self.on_connect_handler = on_connect_handler
-        self.on_message_handler = on_message_handler
 
-        self.client_mqtt = mqtt.Client(f'datamanager-{Params.MQTT_USERNAME}')
-        self.mqtt_authenticate(Params.MQTT_USERNAME, Params.MQTT_PASSWORD)
-
-        self.mqtt_connect(Params.BROKER_ADDRESS, Params.BROKER_PORT)
-
-    def mqtt_authenticate(self, username: str, password: str) -> None:
-        self.client_mqtt.username_pw_set(username, password)
-
-    def mqtt_connect(self, broker_address: str, broker_port: int) -> None:
-        print(f'Connecting to {broker_address}, port: {broker_port}')
-        self.client_mqtt.connect(broker_address, broker_port)
-
-    def mqtt_start(self):
-        self.client_mqtt.loop_forever()
-
-    def collect(self, record: str) -> bool:
-        try:
-            with open(self.log_file, 'a', encoding = 'utf-8') as file:
-                file.write(record)
-        except FileNotFoundError:
-            return False
-        return True
-
-    def add_device(self, device: CardiovascularMonitoringWearable):
-        self.devices.append(device)
+if __name__ == '__main__':
+    data_collection()
